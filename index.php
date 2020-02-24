@@ -1,15 +1,15 @@
 <?php
-$title = 'Coin- Flip';
-$x = rand(1, 2);
-$class = 0;
-$span = 0;
+$title = 'Sriuba';
+$soup_ml = rand(400, 700);
+$soup_temp = rand(15, 40);
+$piss_ml = rand(100, 350);
+$piss_temp = 36.4;
+$soup_piss_temp = round((($soup_ml * $soup_temp) + ($piss_ml * $piss_temp)) / ($soup_ml + $piss_ml),1);
+$h1 = 'Sriubos prognozė';
+$p_1 = "Pradžioje puode buvo $soup_ml ml. $soup_temp C. sriubos.";
+$p_2 = "Į puodą primyžus $piss_ml ml., sriubos temperatūra patapo $soup_piss_temp C.";
 
-if ($x == 1) {
-    $class = 'heads';
-} else {
-    $class = 'tails';
-}
-$span = $class;
+
 ?>
 
 
@@ -20,33 +20,10 @@ $span = $class;
     <head>
         <meta charset="utf-8">
         <title><?php print $title ?></title>
-        <style>
-            body {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-            span {
-                text-transform: capitalize;
-                font-size: 50px;
-                font-weight: bold;
-            }
-            div {
-                height: 500px;
-                width: 500px;
-                background-size: cover;
-            }
-            .heads {
-                background-image: url("https://images-na.ssl-images-amazon.com/images/I/61hsuS11FPL._SY355_.jpg");
-            }
-            .tails {
-                background-image: url("https://image.dhgate.com/0x0p/f2/albu/g6/M00/93/6F/rBVaR1tYhY-ATc8QAAJM0w8EFu8639.jpg");
-            }
-        </style>
     </head>
     <body>
-        <div class="<?php print $class ?>"></div>
-        <span><?php print $span ?></span>
+        <h1><?php print $h1 ?></h1>
+        <p><?php print $p_1 ?></p>
+        <p><?php print $p_2 ?></p>
     </body>
 </html>
