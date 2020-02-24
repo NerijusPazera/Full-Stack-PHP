@@ -1,7 +1,7 @@
 <?php
-    $title = 'Lenta | PHP Fight Club';
-    $p = date('Y-m-d H:i:s') . ' Nerijus grįžo į PHPFIGHTCLUB`ą !';
-    $p_2 = date('F', strtotime('-1 month')) . ' Nerijus priėmė teisingą sprendimą.';
+    $title = 'Facts | PHP Fight Club';
+    $s = rand(2,3);
+    $p = 'Per šią sekundę organizmas pagamino ' . $s . ' mil. kraujo ląstelių.';
 ?>
 
 
@@ -15,6 +15,5 @@
     </head>
     <body>
         <p><?php print $p?></p>
-        <p><?php print $p_2 ?></p>
     </body>
 </html>
