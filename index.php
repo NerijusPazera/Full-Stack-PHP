@@ -21,7 +21,7 @@ $li_2 = "Aš nuvažiuočiau : $m_distance km.";
     <title><?php print $title; ?></title>
 </head>
     <body>
-        <?php print $h1; ?>
+        <h1><?php print $h1; ?></h1>
         <ul>
             <li><?php print $li_1; ?></li>
             <li><?php print $li_2; ?></li>
