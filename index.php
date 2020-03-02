@@ -5,8 +5,8 @@ $police_cons = 7.5;
 $my_fuel = rand(1, 60);
 $my_cons = 11.5;
 
-$p_distance = round(($police_fuel / $police_cons) * 10, 1);
-$m_distance = round(($my_fuel / $my_cons) * 10, 1);
+$p_distance = round(($police_fuel / $police_cons) * 100, 1);
+$m_distance = round(($my_fuel / $my_cons) * 100, 1);
 
 $title = 'Pabėgimo skaičiuoklė';
 $h1 = 'Pabėgimo skaičiuoklė';
