@@ -3,8 +3,7 @@
 $title = 'Alaus skaičiuoklė';
 $money = rand(0, 30);
 $bokal_cost = 3;
-$bokal_total = floor($money / $bokal_cost);
-$total_cost = $bokal_total * $bokal_cost;
+$bokal = 1;
 ?>
 
 <html lang="en" dir="ltr">
@@ -12,31 +11,25 @@ $total_cost = $bokal_total * $bokal_cost;
     <meta charset="utf-8">
     <title><?php print $title; ?></title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .img-container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        h1, h2 {
+        h1 {
             color: green;
-            margin: 0;
+            margin-right: 30px;
+        }
+        div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
-<div class="img-container">
-    <?php for (; $money >= $bokal_cost; $money -= $bokal_cost) : ?>
-        <img src="https://www.stickpng.com/assets/images/580b57fbd9996e24bc43c099.png" width="130px" alt="beer">
+    <?php for (; $money >= $bokal_cost; $money -= $bokal_cost, $bokal++) : ?>
+        <div>
+            <h1><?php print $bokal * $bokal_cost; ?> &euro;</h1>
+            <?php for ($x = 0; $x < $bokal; $x++) : ?>
+                <img src="https://www.stickpng.com/assets/images/580b57fbd9996e24bc43c099.png" width="130px" alt="beer">
+            <?php endfor; ?>
+        </div>
     <?php endfor; ?>
-</div>
-<h1><?php print $total_cost; ?> &euro;</h1>
-<h2>(total)</h2>
 </body>
 </html>
