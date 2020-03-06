@@ -1,6 +1,6 @@
 <?php
 
-$title = 'Masyvai';
+$title = 'Foreach ciklas';
 
 $game = [
     'time' => '12:08',
@@ -56,33 +56,24 @@ $game = [
                 ]
             ]
         ]
+    ],
+    'objects' => [
+        [
+            'x' => 300,
+            'y' => 400,
+            'class' => 'car'
+        ],
+        [
+            'x' => 500,
+            'y' => 200,
+            'class' => 'ballas'
+        ],
     ]
 ];
 
-$game['time'] = date('G:i');
-
-//$active_id = $game['player']['weapons']['active_id'];
-//unset($game['player']['weapons']['available'][$active_id]);
-//
-//$keys = array_keys($game['player']['weapons']['available']);
-//$game['player']['weapons']['active_id'] = $keys[0];
-//
-//$new_active_id = array_key_first($game['player']['weapons']['available']);
-//$game['player']['weapons']['active_id'] = $new_active_id;
-//
-$game['player']['weapons']['available'][] = [
-    'name' => 'Spray-can',
-    'damage' => 10,
-    'icon' => '....',
-    'type' => 'meelee',
-    'ammo' => [
-        'magazine_size' => 999,
-        'in_magazine' => 900,
-        'total' => 900,
-    ]
-];
-
-var_dump($game);
+foreach ($game['objects'] as $key => $object) {
+    $game['objects'][$key]['on_fire'] = rand(0, 1);
+}
 
 ?>
 
@@ -91,8 +82,67 @@ var_dump($game);
     <meta charset="utf-8">
     <title><?php print $title; ?></title>
     <style>
+        body {
+            background-image: url("assets/images/image.png");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        div {
+            background-size: cover;
+            position: absolute;
+        }
+
+        .fire {
+            background-image: url("https://clipartart.com/images/fireball-gif-clipart-3.gif");
+            height: 100px;
+            width: 100px;
+            position: absolute;
+        }
+
+        .pointer {
+            background-image: url("assets/images/pointer.png");
+            height: 50px;
+            width: 30px;
+        }
+
+        .car {
+            background-image: url("assets/images/car.png");
+            height: 100px;
+            width: 210px;
+        }
+
+        .car .fire {
+            left: 45%;
+            bottom: 40%;
+        }
+        .car .pointer {
+            
+        }
+
+        .ballas {
+            background-image: url("assets/images/ballas.png");
+            height: 100px;
+            width: 100px;
+        }
+
+        .ballas .fire {
+            left: 10%;
+        }
     </style>
 </head>
 <body>
+<?php foreach ($game['objects'] as $object) : ?>
+    <div class="<?php print $object['class']; ?>"
+         style="top:<?php print $object['x']; ?>px; left:<?php print $object['y']; ?>px">
+        <?php if ($object['on_fire']): ?>
+            <div class="fire"></div>
+        <?php endif; ?>
+        <?php if (!$object['on_fire']) : ?>
+            <div class="pointer"></div>
+        <?php endif; ?>
+    </div>
+<?php endforeach; ?>
 </body>
 </html>
