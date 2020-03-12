@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0 5px;
+}
+h3 {
+    margin: 0;
+    padding: 15px 20px;
+    border: 1px solid black;
+}
+.card-container {
+    display: flex;
+    justify-content: space-between;
+}
+.card {
+    width: calc(100% / 4 - 7.5px);
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.prices {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.price {
+    color: white;
+    background-color: black;
+}
+.discount {
+    color: white;
+    background-color: darkred;
+}
+img {
+    max-height: 250px;
+}

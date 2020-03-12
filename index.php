@@ -1,78 +1,41 @@
 <?php
 
-$title = 'Foreach ciklas';
+$title = 'Gerimu katalogas';
+$h1 = $title;
 
-$game = [
-    'time' => '12:08',
-    'player' => [
-        'armor' => 90,
-        'health' => 100,
-        'wanted_level' => 2,
-        'cash' => 3718892,
-        'position' => [
-            'x' => 100.123123,
-            'y' => 57.312313,
-            'z' => 5.212134
-        ],
-        'weapons' => [
-            'active_id' => 0,
-            'available' => [
-                [
-                    'name' => 'Dildo',
-                    'damage' => 30,
-                    'icon' => '....',
-                    'type' => 'meelee',
-                ],
-                [
-                    'name' => 'Uzi',
-                    'damage' => 70,
-                    'icon' => '....',
-                    'type' => 'firearm',
-                    'ammo' => [
-                        'magazine_size' => 150,
-                        'in_magazine' => 40,
-                        'total' => 900,
-                    ]
-                ]
-            ]
-        ],
-        'clothes' => [
-            'top' => [
-                'active_id' => null,
-                'available' => [
-                    [
-                        'name' => 'T-shirt',
-                        'model' => '....',
-                    ]
-                ]
-            ],
-            'bottom' => [
-                'active_id' => null,
-                'available' => [
-                    [
-                        'name' => 'Jeans',
-                        'model' => '....',
-                    ]
-                ]
-            ]
-        ]
+$produktai = [
+    [
+        'name' => 'Stumbro Degtinėla',
+        'price' => 6.49,
+        'image'=> '/assets/images/stumbras.png'
     ],
-    'objects' => [
-        [
-            'x' => 300,
-            'y' => 400,
-            'class' => 'car'
-        ],
-        [
-            'x' => 500,
-            'y' => 200,
-            'class' => 'ballas'
-        ],
+    [
+        'name' => 'Žalčio Balzamas',
+        'price' => 9.49,
+        'price_special' => 7.99,
+        'image'=> '/assets/images/balzamas.png'
+    ],
+    [
+        'name' => 'Zelionaja Marka',
+        'price' => 14.49,
+        'image'=> '/assets/images/zelionaja.png'
+    ],
+    [
+        'name' => 'Scottish Leader',
+        'price' => 16.99,
+        'price_special' => 12.49,
+        'image'=> '/assets/images/scottish.png'
     ]
 ];
 
-foreach ($game['objects'] as $key => $object) {
-    $game['objects'][$key]['on_fire'] = rand(0, 1);
+foreach ($produktai as $produkto_id => $produktas) {
+    $produktai[$produkto_id]['price_display'] = '€' . $produktas['price'];
+
+    if ($produktas['price_special'] ?? false) {
+        $discount = round((($produktas['price'] - $produktas['price_special']) / $produktas['price']) * 100, 0);
+        $produktai[$produkto_id]['discount'] = '-' . $discount . '%';
+        $produktai[$produkto_id]['price_display'] = '€' . $produktas['price_special'];
+    }
 }
 
 ?>
@@ -81,68 +44,23 @@ foreach ($game['objects'] as $key => $object) {
 <head>
     <meta charset="utf-8">
     <title><?php print $title; ?></title>
-    <style>
-        body {
-            background-image: url("assets/images/image.png");
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        div {
-            background-size: cover;
-            position: absolute;
-        }
-
-        .fire {
-            background-image: url("https://clipartart.com/images/fireball-gif-clipart-3.gif");
-            height: 100px;
-            width: 100px;
-            position: absolute;
-        }
-
-        .pointer {
-            background-image: url("assets/images/pointer.png");
-            height: 50px;
-            width: 30px;
-        }
-
-        .car {
-            background-image: url("assets/images/car.png");
-            height: 100px;
-            width: 210px;
-        }
-
-        .car .fire {
-            left: 45%;
-            bottom: 40%;
-        }
-        .car .pointer {
-            
-        }
-
-        .ballas {
-            background-image: url("assets/images/ballas.png");
-            height: 100px;
-            width: 100px;
-        }
-
-        .ballas .fire {
-            left: 10%;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<?php foreach ($game['objects'] as $object) : ?>
-    <div class="<?php print $object['class']; ?>"
-         style="top:<?php print $object['x']; ?>px; left:<?php print $object['y']; ?>px">
-        <?php if ($object['on_fire']): ?>
-            <div class="fire"></div>
-        <?php endif; ?>
-        <?php if (!$object['on_fire']) : ?>
-            <div class="pointer"></div>
-        <?php endif; ?>
+    <h1><?php print $h1; ?></h1>
+    <div class="card-container">
+        <?php foreach ($produktai as $produktas) : ?>
+            <div class="card">
+                <div class="prices">
+                    <h3 class="price"><?php print $produktas['price_display']; ?></h3>
+                    <?php if ($produktas['price_special'] ?? false) : ?>
+                        <h3 class="discount"><?php print $produktas['discount']; ?></h3>
+                    <?php endif; ?>
+                </div>
+                <img src="<?php print $produktas['image']; ?>" alt="Product image">
+                <h2><?php print $produktas['name']; ?></h2>
+            </div>
+        <?php endforeach; ?>
     </div>
-<?php endforeach; ?>
 </body>
 </html>
