@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body {
-    margin: 0 5px;
+    margin: 0 10px;
 }
 h3 {
     margin: 0;
@@ -14,7 +14,7 @@ h3 {
     justify-content: space-between;
 }
 .card {
-    width: calc(100% / 4 - 7.5px);
+    width: calc(100% / 4 - 10px);
     border: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -36,4 +36,13 @@ h3 {
 }
 img {
     max-height: 250px;
+}
+.yra-sandelyje {
+    color: green;
+}
+.nera-sandelyje {
+    color: red;
+}
+.nera-sandelyje img {
+    filter: grayscale(100%);
 }
