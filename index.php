@@ -1,49 +1,62 @@
 <?php
 
-$my_solders = 10;
-$enemy_solders = rand(5, 15);
-$win_percentage = round(($my_solders / ($my_solders + $enemy_solders)) * 100, 0);
+$title = 'Palicijos išrašas';
+$h1 = $title;
 
-$fights = [];
+$police_report = [
+    [
+        'subject' => 'Domantas',
+        'reason' => 'Public Urination',
+        'amount' => 50
+    ],
+    [
+        'subject' => 'Migle',
+        'reason' => 'Drunk in public',
+        'amount' => 0
+    ],
+    [
+        'subject' => 'Nerijus',
+        'reason' => 'Speeding',
+        'amount' => 100
+    ]
+];
 
-for ($x= 0; $x < $my_solders && $enemy_solders > 0; $x++) {
-    $fight['enemies_down'] = 0;
-    for ($y = 0; $y < $enemy_solders; $y++){
-        $win_chance = rand(0, 100);
-        if ($win_percentage > $win_chance) {
-            $fight['enemies_down'] += 1;
-            $enemy_solders--;
-        }
-        else {
-            break;
-        }
+foreach ($police_report as $report_id => $report) {
+    if (!$report['amount']) {
+        $police_report[$report_id]['warning'] = true;
+    }
+    else {
+        $police_report[$report_id]['warning'] = false;
+    }
+
+    $police_report[$report_id]['text'] = $report['subject'] . ' ' . '(' . $report['reason'] . ') ';
+}
+
+foreach ($police_report as $report_id => $report) {
+    if ($report['warning']) {
+        $police_report[$report_id]['text'] .= 'Įspėjimas';
+    }
+    else {
+        $police_report[$report_id]['text'] .= $report['amount'] . ' Eurų bauda';
     }
 }
 
-var_dump($fights);
-
+//var_dump($police_report);
 ?>
 
 
-<!--<html lang="en" dir="ltr">-->
-<!--  <head>-->
-<!--    <meta charset="utf-8">-->
-<!--    <link rel="stylesheet" href="/assets/css/style.css">-->
-<!--    <title></title>-->
-<!--  </head>-->
-<!--  <body>-->
-<!--      <main>-->
-<!--          <div class="fights-container">-->
-<!--              --><?php //foreach ($fights as $fight): ?>
-<!--                  <div class="fight">-->
-<!--                      <div class="my-soldier">M</div>-->
-<!--                      <div class="hedge">-</div>-->
-<!--                      --><?php //for ($i = 0; $i < $fight['enemies_down']; $i++): ?>
-<!--                          <div class="enemy-soldier">E</div>-->
-<!--                      --><?php //endfor; ?>
-<!--                  </div>-->
-<!--              --><?php //endforeach; ?>
-<!--          </div>-->
-<!--      </main>-->
-<!--  </body>-->
-<!--</html>-->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title><?php print $title; ?></title>
+</head>
+<body>
+<h1><?php print $h1; ?></h1>
+<ul>
+    <?php foreach ($police_report as $report) : ?>
+        <li><?php print $report['text']; ?></li>
+    <?php endforeach; ?>
+</ul>
+</body>
+</html>
