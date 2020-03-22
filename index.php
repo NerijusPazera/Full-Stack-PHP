@@ -1,35 +1,42 @@
 <?php
 
-$title = 'Funkcijos';
+function car($name, $year_made, $fuel_type, $price) {
+    return [
+        'name' => $name,
+        'fuel_type' => $fuel_type,
+        'year_made' => $year_made,
+        'price' => $price
+    ];
+}
 
-$x = rand(2, 10);
+function price_range($min, $max, $cars) {
 
-function pirminis($x) {
-    for ($y = 2; $y <= $x / 2; $y++) {
-        if($x % $y == 0) {
-            return false;
+    $results = [];
+    foreach ($cars as $car) {
+        if ($car['price'] > $min && $car['price'] < $max) {
+            $results[] = $car;
         }
     }
-    return true;
+    return $results;
 }
 
-if(pirminis($x)) {
-    $h1 = "Skaicius $x yra pirminis";
-}
-else {
-    $h1 = "Skaicius $x yra nepirminis";
-}
+$cars = [
+        car('BMW E60', 2005, 'Diesel', 6000),
+        car('BMW F30', 2011, 'Petrol', 15000),
+        car('BMW F10', 2014, 'Petrol', 18000),
+        car('BMW G15', 2018, 'Petrol', 100000),
+
+];
+
+var_dump(price_range(1000, 20000, $cars));
 
 ?>
 
 
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="/assets/css/style.css">
-        <title><?php print $title; ?></title>
-    </head>
-    <body>
-        <h1><?php print $h1; ?></h1>
-    </body>
-</html>
+<!--<html>-->
+<!--<head>-->
+<!--    <title></title>-->
+<!--</head>-->
+<!--<body>-->
+<!--</body>-->
+<!--</html>-->
