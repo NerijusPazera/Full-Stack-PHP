@@ -1,42 +1,38 @@
 <?php
 
-function car($name, $year_made, $fuel_type, $price) {
-    return [
-        'name' => $name,
-        'fuel_type' => $fuel_type,
-        'year_made' => $year_made,
-        'price' => $price
-    ];
+/**
+ * F-ija kelianti skaiciu kvadratu
+ * @param array $x
+ * @return float
+ */
+function square(float $x): float
+{
+    return $x ** 2;
 }
 
-function price_range($min, $max, $cars) {
+$span = 'Neivedete jokio skaiciaus !';
 
-    $results = [];
-    foreach ($cars as $car) {
-        if ($car['price'] > $min && $car['price'] < $max) {
-            $results[] = $car;
-        }
-    }
-    return $results;
+if (isset($_POST['number']) && $_POST['number'] != '') {
+    $span = 'Ivestas skaicius pakleltas kvadratu: ' . square($_POST['number']);
 }
 
-$cars = [
-        car('BMW E60', 2005, 'Diesel', 6000),
-        car('BMW F30', 2011, 'Petrol', 15000),
-        car('BMW F10', 2014, 'Petrol', 18000),
-        car('BMW G15', 2018, 'Petrol', 100000),
 
-];
-
-var_dump(price_range(1000, 20000, $cars));
+$title = 'Formos';
 
 ?>
 
-
-<!--<html>-->
-<!--<head>-->
-<!--    <title></title>-->
-<!--</head>-->
-<!--<body>-->
-<!--</body>-->
-<!--</html>-->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title><?php print $title; ?></title>
+</head>
+<body>
+<form method="post">
+    <label>Iveskite skaiciu:
+        <input type="text" name="number">
+    </label>
+    <input type="submit" value="siusti">
+</form>
+<span><?php print $span; ?></span>
+</body>
+</html>
