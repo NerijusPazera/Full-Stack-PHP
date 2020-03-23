@@ -1,24 +1,14 @@
 <?php
 
-/**
- * F-ija kelianti skaiciu kvadratu
- * @param array $x
- * @return float
- */
-function square(float $x): float
-{
-    return $x ** 2;
+$size = 50;
+
+if (isset($_POST['size']) && is_numeric($_POST['size'])) {
+    $size = $_POST['size'];
 }
-
-$span = 'Neivedete jokio skaiciaus !';
-
-if (isset($_POST['number']) && $_POST['number'] != '') {
-    $span = 'Ivestas skaicius pakleltas kvadratu: ' . square($_POST['number']);
-}
-
 
 $title = 'Formos';
 
+var_dump($_POST);
 ?>
 
 <html lang="en" dir="ltr">
@@ -28,11 +18,13 @@ $title = 'Formos';
 </head>
 <body>
 <form method="post">
-    <label>Iveskite skaiciu:
-        <input type="text" name="number">
+    <label>Pasirinkite dydi:
+        <input type="range" name="size" value="<?php print $size; ?>" min="1" max="100">
     </label>
-    <input type="submit" value="siusti">
+    <button name="action">Keisk dydi !</button>
 </form>
-<span><?php print $span; ?></span>
+<div class="img-container" style="height: 600px; width: 900px;">
+    <img src="assets/images/boobs.png" alt="boobs" height="<?php print $size ?>%">
+</div>
 </body>
 </html>
