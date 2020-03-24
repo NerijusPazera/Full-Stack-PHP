@@ -7,13 +7,12 @@
  */
 function html_attr(array $attr): string
 {
-    $atributes = '';
+    $attributes = '';
 
     foreach ($attr as $index => $value) {
-        $atributes .= "$index=\"$value\" ";
+        $attributes .= "$index=\"$value\" ";
     }
-
-    return $atributes;
+    return $attributes;
 }
 
 $title = 'Formos';
