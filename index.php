@@ -1,6 +1,6 @@
 <?php
 
-include "core/functions/form/form_functions.php";
+require 'bootloader.php';
 
 $title = 'Formos';
 
@@ -17,67 +17,77 @@ $form = [
             'type' => 'text',
             'value' => '',
             'validators' => [
-                    'validate_not_empty'
+                'validate_not_empty',
+                'validate_has_space'
             ],
             'extra' => [
                 'attr' => [
                     'class' => 'first-name',
+                    'placeholder' => 'Vardas ir pavardė'
                 ]
             ]
         ],
-        'last_name' => [
-            'label' => 'Last name',
-            'type' => 'text',
-            'value' => '',
-            'validators' => [
-                'validate_not_empty'
-            ],
-            'extra' => [
-                'attr' => [
-                    'class' => 'last-name',
-                ]
-            ]
-        ],
+//        'last_name' => [
+//            'label' => 'Last name',
+//            'type' => 'text',
+//            'value' => '',
+//            'validators' => [
+//                'validate_not_empty'
+//            ],
+//            'extra' => [
+//                'attr' => [
+//                    'class' => 'last-name',
+//                ]
+//            ]
+//        ],
         'age' => [
             'label' => 'Age',
-            'type' => 'number',
+            'type' => 'text',
             'value' => '',
             'filter' => FILTER_SANITIZE_NUMBER_INT,
             'validators' => [
-                'validate_not_empty'
+                'validate_not_empty',
+                'validate_is_number',
+                'validate_is_positive',
+                'validate_max_100',
+                'validate_field_range' => [
+                    'min' => 18,
+                    'max' => 100
+                ]
             ],
             'extra' => [
                 'attr' => [
                     'class' => 'age',
+                    'placeholder' => 'Amžius'
                 ]
             ]
         ],
-        'email' => [
-            'label' => 'E-mail',
-            'type' => 'email',
-            'value' => '',
-            'validators' => [
-                'validate_not_empty'
-            ],
-            'extra' => [
-                'attr' => [
-                    'class' => 'email',
-                ]
-            ]
-        ],
-        'password' => [
-            'label' => 'Password',
-            'type' => 'password',
-            'value' => '',
-            'validators' => [
-                'validate_not_empty'
-            ],
-            'extra' => [
-                'attr' => [
-                    'class' => 'password',
-                ]
-            ]
-        ],
+//        'email' => [
+//            'label' => 'E-mail',
+//            'type' => 'email',
+//            'value' => '',
+//            'validators' => [
+//                'validate_not_empty'
+//            ],
+//            'extra' => [
+//                'attr' => [
+//                    'class' => 'email',
+//                ]
+//            ]
+//        ],
+//        'password' => [
+//            'label' => 'Password',
+//            'type' => 'password',
+//            'value' => '',
+//            'validators' => [
+//                'validate_not_empty'
+//            ],
+//            'extra' => [
+//                'attr' => [
+//                    'class' => 'password',
+//                ]
+//            ]
+//        ],
 //        'select' => [
 //            'extra' => [
 //                'attr' => [
@@ -97,15 +107,18 @@ $form = [
     'buttons' => [
         'action' => [
             'name' => 'action',
-            'text' => 'Send',
+            'text' => 'Ar aš normalus ?',
             'extra' => [
                 'attr' => [
                     'class' => 'action-button',
                 ]
             ]
         ]
-    ]
-
+    ],
+    'callbacks' => [
+        'success' => 'form_success',
+        'failed' => 'form_fail'
+    ],
 ];
 
 if ($_POST) {
@@ -113,7 +126,8 @@ if ($_POST) {
     validate_form($form, $safe_input);
 }
 
-var_dump($safe_input);
+//var_dump($safe_input ?? []);
+//var_dump($form['fields']);
 
 ?>
 
@@ -121,12 +135,12 @@ var_dump($safe_input);
 <head>
     <meta charset="utf-8">
     <title><?php print $title; ?></title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="app/assets/css/style.css">
 </head>
 <style>
 </style>
 <body>
 <main>
-    <?php include 'templates/form.tpl.php'; ?>
+    <?php include 'core/templates/form.tpl.php'; ?>
 </main>
 </html>

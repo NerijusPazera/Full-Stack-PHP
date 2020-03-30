@@ -2,13 +2,13 @@
 
     <!--    Field Generation Start-->
     <?php foreach ($form['fields'] ?? [] as $field_id => $field) : ?>
-        <label><span><?php print $field['label']; ?>: </span>
+        <label><span><?php print $field['label'] ?? ''; ?></span>
             <?php if (in_array($field['type'], ['text', 'email', 'password', 'number'])) : ?>
                 <input <?php print html_attr(($field['extra']['attr'] ?? []) +
                     [
                         'type' => $field['type'],
                         'name' => $field_id,
-                        'value' => $field['value']
+                        'value' => $field['value'],
                     ]); ?>>
             <?php endif; ?>
             <?php if (isset($field['error'])) : ?>
