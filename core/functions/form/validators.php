@@ -26,7 +26,7 @@ function validate_not_empty($field_input, array &$field): bool
 function validate_is_number($field_input, array &$field): bool
 {
     if (!is_numeric($field_input)) {
-        $field['error'] = 'Amžių nurodykite skaitmenimis !';
+        $field['error'] = 'Įveskite skaičių !';
 
         return false;
     }
@@ -70,12 +70,22 @@ function validate_max_100($field_input, array &$field): bool
 
 function form_success($form, $safe_input)
 {
-    var_dump('Gal ir normalus !');
+    if ($safe_input['veiksmas'] == 'sudetis') {
+        $atsakymas = $safe_input['x'] + $safe_input['y'];
+    } elseif ($safe_input['veiksmas'] == 'atimtis') {
+        $atsakymas = $safe_input['x'] - $safe_input['y'];
+    } elseif ($safe_input['veiksmas'] == 'daugyba') {
+        $atsakymas = $safe_input['x'] * $safe_input['y'];
+    } else {
+        $atsakymas = $safe_input['x'] / $safe_input['y'];
+    }
+
+    return print $atsakymas;
 }
 
 function form_fail($form, $safe_input)
 {
-    var_dump('Nenormalus !');
+    var_dump('Klaida');
 }
 
 /**

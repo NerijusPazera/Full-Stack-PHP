@@ -11,6 +11,19 @@
                         'value' => $field['value'],
                     ]); ?>>
             <?php endif; ?>
+            <?php if (in_array($field['type'], ['select'])) : ?>
+                <select <?php print html_attr(($field['extra']['attr'] ?? []) +
+                    [
+                        'name' => $field_id
+                    ]); ?>>
+                    <?php foreach ($field['options'] as $option_id => $option) : ?>
+                        <option value="<?php print $option_id; ?>"
+                            <?php print ($field['value'] == $option_id) ? 'selected' : ''; ?>>
+                            <?php print $option; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php endif; ?>
             <?php if (isset($field['error'])) : ?>
                 <span class="error"><?php print $field['error']; ?></span>
             <?php endif; ?>
@@ -20,7 +33,8 @@
 
     <!--    Button Generation Start-->
     <?php foreach ($form['buttons'] ?? [] as $button_id => $button) : ?>
-        <button <?php print html_attr(($button['extra']['attr'] ?? []) + [
+        <button <?php print html_attr(($button['extra']['attr'] ?? []) +
+            [
                 'name' => $button['name']
             ]); ?>><?php print $button['text']; ?></button>
     <?php endforeach; ?>

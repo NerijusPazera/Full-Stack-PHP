@@ -1,7 +1,7 @@
 <?php
 
 /**
- * F-ija generuojanti formos atributus
+ * F-ija generuojanti html atributus
  * @param array $attr
  * @return string
  */
