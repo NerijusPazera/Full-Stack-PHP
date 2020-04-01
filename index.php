@@ -12,7 +12,7 @@ if ($_POST) {
 
 //var_dump($safe_input ?? []);
 //var_dump($form['fields']);
-
+var_dump(file_to_array(DB_FILE));
 
 ?>
 
