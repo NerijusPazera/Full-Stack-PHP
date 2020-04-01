@@ -22,26 +22,28 @@ function get_filtered_inputs(array $form): ?array
 
 /**
  * F-cija tikrinanti ar teisingai uzpildyta forma
+ * sukuria laukialaims/formai errorus
  * @param array $form
- * @param array $safe_input
+ * @param array $safe_input isfiltruotas $_POST masyvas
  * @return bool
  */
 function validate_form(array &$form, array $safe_input): bool
 {
     $success = true;
 
-    foreach ($safe_input as $field_id => $field_value) {
-        $field = &$form['fields'][$field_id];
-        $field['value'] = $field_value;
+    foreach ($form['fields'] as $field_id => &$field) {
+        $field['value'] = $safe_input[$field_id];
 
-        foreach ($field['validators'] ?? [] as $validator_id => $validator) {
-            if (!is_array($validator)) {
-                if (!$validator($field_value, $field)) {
+        foreach ($field['validators'] ?? [] as $validator_id => $field_validator) {
+            if (!is_array($field_validator)) {
+                if (!$field_validator($field['value'], $field)) {
                     $success = false;
                     break;
                 }
             } else {
-                $validator = $validator_id($field_value, $field, $validator);
+                $validator_function = $validator_id;
+                $validator_params = $field_validator;
+                $validator = $validator_function($field['value'], $field, $validator_params);
 
                 if (!$validator) {
                     $success = false;
@@ -51,6 +53,23 @@ function validate_form(array &$form, array $safe_input): bool
 
         }
 
+    }
+    if ($success) {
+        foreach ($form['validators'] ?? [] as $validator_id => $form_validator) {
+            if (!is_array($form_validator)) {
+                $validator_function = $form_validator;
+                $validator = $validator_function($safe_input, $form);
+            } else {
+                $validator_function = $validator_id;
+                $validator_params = $form_validator;
+                $validator = $validator_function($safe_input, $form, $validator_params);
+            }
+
+            if (!$validator) {
+                $success = false;
+                break;
+            }
+        }
     }
 
     if (isset ($form['callbacks']['success']) && $success) {

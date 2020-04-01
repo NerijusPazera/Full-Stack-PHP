@@ -70,22 +70,12 @@ function validate_max_100($field_input, array &$field): bool
 
 function form_success($form, $safe_input)
 {
-    if ($safe_input['veiksmas'] == 'sudetis') {
-        $atsakymas = $safe_input['x'] + $safe_input['y'];
-    } elseif ($safe_input['veiksmas'] == 'atimtis') {
-        $atsakymas = $safe_input['x'] - $safe_input['y'];
-    } elseif ($safe_input['veiksmas'] == 'daugyba') {
-        $atsakymas = $safe_input['x'] * $safe_input['y'];
-    } else {
-        $atsakymas = $safe_input['x'] / $safe_input['y'];
-    }
-
-    return print $atsakymas;
+    array_to_file($safe_input, DB_FILE);
 }
 
 function form_fail($form, $safe_input)
 {
-    var_dump('Klaida');
+    var_dump('Eik nx !');
 }
 
 /**
@@ -119,6 +109,71 @@ function validate_field_range($field_input, array &$field, array $params): bool
             '@min' => $params['min'],
             '@max' => $params['max']
         ]);
+
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * F-cija tikrinanti ar nurodyti laukeliai sutampa
+ * @param array $filtered_input isfiltruotas $_POST masyvas
+ * @param array $form
+ * @param array $params
+ * @return bool
+ */
+function validate_fields_match(array $filtered_input, array &$form, array $params): bool
+{
+    $comparision_field_id = $params[0];
+    $comparision = $filtered_input[$comparision_field_id];
+
+    foreach ($params as $param_id => $param) {
+        if ($comparision !== $filtered_input[$param]) {
+            $form['error'] = 'Laukeliai nesutampa !';
+
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * F-cija tikrinanti ar tekstas yra tinkamo ilgio
+ * @param $field_input
+ * @param array $field
+ * @param $params
+ * @return bool
+ */
+function validate_text_length($field_input, array &$field, array $params): bool
+{
+    $text_length = strlen($field_input);
+
+    if ($text_length < $params['min'] || $text_length > $params['max']) {
+        $field['error'] = strtr('Žodis turi buti ilgesnis nei @min ir trumpesnis nei @max simbolių', [
+            '@min' => $params['min'],
+            '@max' => $params['max']
+        ]);
+
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * F-cija tikrinanti ar telefono numeris tinkamo formato
+ * @param $field_input
+ * @param array $field
+ * @return bool
+ */
+function validate_phone($field_input, array &$field): bool
+{
+    $pattern = "/\+3706[0-9]{7}$/";
+
+    if (!preg_match($pattern, $field_input)) {
+        $field['error'] = 'Telefono numeris netinkamao formato !';
 
         return false;
     }

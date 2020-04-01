@@ -29,6 +29,9 @@
             <?php endif; ?>
         </label>
     <?php endforeach; ?>
+    <?php if (isset($form['error'])): ?>
+        <span class="error"><?php print $form['error']; ?></span>
+    <?php endif; ?>
     <!--    Field Generation End-->
 
     <!--    Button Generation Start-->
