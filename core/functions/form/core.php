@@ -80,3 +80,15 @@ function validate_form(array &$form, array $safe_input): bool
 
     return $success;
 }
+
+/**
+ * F-cija uzpildanti formos laukus, kuriuos anksciau pilde vartotojas.
+ * @param $form
+ * @param $data
+ */
+function fill_form(array &$form, array $data): void
+{
+    foreach ($form['fields'] as $field_id => &$field) {
+        $field['value'] = $data[$field_id] ?? $field['value'] ?? '';
+    }
+}

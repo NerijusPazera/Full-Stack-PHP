@@ -70,12 +70,32 @@ function validate_max_100($field_input, array &$field): bool
 
 function form_success($form, $safe_input)
 {
-    array_to_file($safe_input, DB_FILE);
+    $data = file_to_array(DB_FILE) ?: [];
+
+    $data[] = [
+        'vardas' => $safe_input['vardas'],
+        'ar_laikai' => $safe_input['ar_laikai'],
+        'ar_pili' => $safe_input['ar_pili'],
+        'ar_rukai' => $safe_input['ar_rukai'],
+    ];
+
+    setcookie('form_done', 1, strtotime('+1 year'));
+    header("Location: http://phpsualum.lt/users.php");
+
+    array_to_file($data, DB_FILE);
 }
 
 function form_fail($form, $safe_input)
 {
-    var_dump('Eik nx !');
+    $data = [];
+
+    foreach ($form['fields'] as $field_id => $field) {
+        if (!isset($field['error'])) {
+            $data[$field_id] = $field['value'];
+        }
+    }
+    $string = json_encode($data);
+    setcookie('form_inputs', $string, strtotime('+1 year'));
 }
 
 /**

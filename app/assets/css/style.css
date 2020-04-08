@@ -46,3 +46,24 @@ main {
     font-weight: bold;
     display: block;
 }
+.table, tr, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+}
+.table {
+    margin-bottom: 20px;
+}
+
+#login-form .radio {
+    width: 20px;
+    display: inline-block;
+}
+a {
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 15px 5px;
+    color: white;
+    background-color: black;
+    border-radius: 25px;
+}

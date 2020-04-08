@@ -27,6 +27,14 @@
             <?php if (isset($field['error'])) : ?>
                 <span class="error"><?php print $field['error']; ?></span>
             <?php endif; ?>
+            <?php if (in_array($field['type'], ['radio'])) : ?>
+                <h3><?php print $field['headline']; ?></h3>
+                <?php foreach ($field['options'] as $option_id => $option) : ?>
+                    <label><span><?php print $option; ?></span>
+                        <input <?php print radio_attr($field, $field_id, $option_id); ?>>
+                    </label>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </label>
     <?php endforeach; ?>
     <?php if (isset($form['error'])): ?>

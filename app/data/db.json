@@ -1,0 +1,44 @@
+[
+  {
+    "vardas": "Balvonas",
+    "ar_laikai": "taip",
+    "ar_pili": "taip",
+    "ar_rukai": "taip"
+  },
+  {
+    "vardas": "Balvonas",
+    "ar_laikai": "taip",
+    "ar_pili": "ne",
+    "ar_rukai": "taip"
+  },
+  {
+    "vardas": "Balvonas",
+    "ar_laikai": "taip",
+    "ar_pili": "taip",
+    "ar_rukai": "ne"
+  },
+  {
+    "vardas": "Balvonas",
+    "ar_laikai": "taip",
+    "ar_pili": "taip",
+    "ar_rukai": "ne"
+  },
+  {
+    "vardas": "Balvonas",
+    "ar_laikai": "taip",
+    "ar_pili": "taip",
+    "ar_rukai": "taip"
+  },
+  {
+    "vardas": "Balvonas",
+    "ar_laikai": "taip",
+    "ar_pili": "taip",
+    "ar_rukai": "ne"
+  },
+  {
+    "vardas": "Balvonas",
+    "ar_laikai": "taip",
+    "ar_pili": "ne",
+    "ar_rukai": "taip"
+  }
+]

@@ -14,6 +14,8 @@ function array_to_file(array $array, string $file): bool
     if ($bytes_written !== false) {
         return true;
     }
+
+    return false;
 }
 
 /**
@@ -29,5 +31,6 @@ function file_to_array(string $file)
             return json_decode($data, true);
         }
     }
+
     return false;
 }
