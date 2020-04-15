@@ -68,36 +68,6 @@ function validate_max_100($field_input, array &$field): bool
     return true;
 }
 
-function form_success($form, $safe_input)
-{
-    $data = file_to_array(DB_FILE) ?: [];
-
-    $data[] = [
-        'vardas' => $safe_input['vardas'],
-        'ar_laikai' => $safe_input['ar_laikai'],
-        'ar_pili' => $safe_input['ar_pili'],
-        'ar_rukai' => $safe_input['ar_rukai'],
-    ];
-
-    setcookie('form_done', 1, strtotime('+1 year'));
-    header("Location: http://phpsualum.lt/users.php");
-
-    array_to_file($data, DB_FILE);
-}
-
-function form_fail($form, $safe_input)
-{
-    $data = [];
-
-    foreach ($form['fields'] as $field_id => $field) {
-        if (!isset($field['error'])) {
-            $data[$field_id] = $field['value'];
-        }
-    }
-    $string = json_encode($data);
-    setcookie('form_inputs', $string, strtotime('+1 year'));
-}
-
 /**
  * F-cija tikrinanti ar tarp zodziu yra tarpas
  * @param $field_input
@@ -116,7 +86,7 @@ function validate_has_space($field_input, array &$field): bool
 }
 
 /**
- * F-cija tikrinanti ar skaicius yra tarp 18 ir 100
+ * F-cija tikrinanti ar skaicius yra tinkamame rezyje
  * @param $field_input
  * @param array $field
  * @param $params
@@ -175,25 +145,6 @@ function validate_text_length($field_input, array &$field, array $params): bool
             '@min' => $params['min'],
             '@max' => $params['max']
         ]);
-
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * F-cija tikrinanti ar telefono numeris tinkamo formato
- * @param $field_input
- * @param array $field
- * @return bool
- */
-function validate_phone($field_input, array &$field): bool
-{
-    $pattern = "/\+3706[0-9]{7}$/";
-
-    if (!preg_match($pattern, $field_input)) {
-        $field['error'] = 'Telefono numeris netinkamao formato !';
 
         return false;
     }

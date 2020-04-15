@@ -1,5 +1,7 @@
 <?php
 
+header("Location: create.php");
+
 require 'bootloader.php';
 
 $title = 'Apklausa';

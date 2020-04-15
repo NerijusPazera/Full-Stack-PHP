@@ -44,10 +44,7 @@
 
     <!--    Button Generation Start-->
     <?php foreach ($form['buttons'] ?? [] as $button_id => $button) : ?>
-        <button <?php print html_attr(($button['extra']['attr'] ?? []) +
-            [
-                'name' => $button['name']
-            ]); ?>><?php print $button['text']; ?></button>
+        <button <?php print html_attr(($button['extra']['attr'] ?? [])); ?>><?php print $button['text']; ?></button>
     <?php endforeach; ?>
     <!--    Button Generation End-->
 
