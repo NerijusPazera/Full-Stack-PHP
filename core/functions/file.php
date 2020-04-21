@@ -34,3 +34,4 @@ function file_to_array(string $file)
 
     return false;
 }
+

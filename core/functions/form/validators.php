@@ -151,3 +151,67 @@ function validate_text_length($field_input, array &$field, array $params): bool
 
     return true;
 }
+
+/**
+ * F-cija tikrinanti ar email tinkamo formato
+ * @param $field_input
+ * @param array $field
+ * @return bool
+ */
+function validate_email($field_input, array &$field): bool
+{
+    $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i";
+
+    if (!preg_match($pattern, $field_input)) {
+        $field['error'] = 'El paštas netinkamo formato !';
+
+        return false;
+    }
+
+    return true;
+
+}
+
+/**
+ * F-cija tikrinanti ar vartotojas tokiu email nebuvo registruotas anksciau
+ * @param $field_input
+ * @param array $field
+ * @return bool
+ */
+function validate_email_unique($field_input, array &$field): bool
+{
+    $users = file_to_array(USERS) ?: [];
+
+    foreach ($users as $user) {
+        if ($user['email'] == $field_input) {
+            $field['error'] = 'Vartotojas tokiu el-paštu jau registruotas !';
+
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * F-cija tikrinanti ar toks vartotojas yra registruotas
+ * @param array $filtered_input
+ * @param $form
+ * @return bool
+ */
+function validate_login(array $filtered_input, &$form): bool
+{
+    $users = file_to_array(USERS) ?: [];
+
+    foreach ($users as $user_info) {
+        if ($user_info['email'] == $filtered_input['email'] && $user_info['password'] == $filtered_input['password']) {
+
+            return true;
+        }
+
+    }
+
+    $form['error'] = 'Toks vartotojas neregistruotas, arba blogai įvestas slaptažodis !';
+
+    return false;
+}

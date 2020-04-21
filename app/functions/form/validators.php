@@ -56,9 +56,3 @@ function validate_phone($field_input, array &$field): bool
 
     return true;
 }
-
-//function form_success($form, $safe_input)
-//{
-//
-//}
-
