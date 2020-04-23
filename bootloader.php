@@ -3,15 +3,18 @@
 session_start();
 
 define('ROOT', __DIR__);
-define('USERS', ROOT . '/app/data/users.json');
-define('CARS', ROOT . '/app/data/cars.json');
+define('DB_FILE', ROOT . '/app/data/db.json');
 
 require 'core/functions/form/core.php';
 require 'core/functions/form/validators.php';
 require 'core/functions/html.php';
 require 'core/functions/file.php';
+require 'core/templates/nav_array.tpl.php';
+require 'vendor/autoload.php';
+
 
 require 'app/functions/form/validators.php';
+require 'app/functions/auth.php';
 
-require 'core/classes/FileDB.php';
+$app = new App\App();
 

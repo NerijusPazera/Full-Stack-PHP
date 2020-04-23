@@ -1,5 +1,7 @@
 <?php
 
+namespace Core\Databases;
+
 class FileDB
 {
     private $file_name;
@@ -143,7 +145,7 @@ class FileDB
 
             return array_key_last($this->data[$table_name]);
 
-        } elseif (!isset($this->data[$table_name][$row_id])) {
+        } elseif (!$this->rowExists($table_name, $row_id)) {
             $this->data[$table_name][$row_id] = $row;
 
             return $row_id;
@@ -151,4 +153,98 @@ class FileDB
 
         return false;
     }
+
+    /**
+     * Metodas patikrinantis ar table egzistuoja eilute su nurodytu indeksu.
+     * @param string $table_name
+     * @param $row_id
+     * @return bool
+     */
+    public function rowExists(string $table_name, $row_id): bool
+    {
+        if (isset($this->data[$table_name][$row_id])) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Metodas perasantis eilute indeksu $row_id i masyva $row.
+     * @param string $table_name
+     * @param $row_id
+     * @param array $row
+     * @return bool
+     */
+    public function updateRow(string $table_name, $row_id, array $row): bool
+    {
+        if ($this->rowExists($table_name, $row_id)) {
+            $this->data[$table_name][$row_id] = $row;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Metodas istrinantis nurodyta ($row_id) eilute.
+     * @param string $table_name
+     * @param $row_id
+     * @return bool
+     */
+    public function deleteRow(string $table_name, $row_id): bool
+    {
+        if ($this->rowExists($table_name, $row_id)) {
+            unset($this->data[$table_name][$row_id]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Metodas grazinantis nurodyta ($row_id) eilute.
+     * @param string $table_name
+     * @param $row_id
+     * @return mixed
+     */
+    public function getRowById(string $table_name, $row_id)
+    {
+        if ($this->rowExists($table_name, $row_id)) {
+            return $this->data[$table_name][$row_id];
+        }
+
+        return false;
+    }
+
+    /**
+     * Metodas, grazinantis eiluciu masyva ($results), kurios atitinka nurodytus kriterijus ($conditions).
+     * @param string $table_name
+     * @param array $conditions
+     * @return array
+     */
+    public function getRowsWhere(string $table_name, array $conditions = []): array
+    {
+        $results = [];
+
+        foreach ($this->data[$table_name] as $row_id => $row) {
+            $passed = true;
+
+            foreach ($conditions as $condition_id => $condition_value) {
+                if (!isset($row[$condition_id]) || $row[$condition_id] != $condition_value) {
+                    $passed = false;
+                    break;
+                }
+            }
+            if ($passed) {
+                $results[$row_id] = $row;
+            }
+        }
+
+        return $results;
+    }
 }
+

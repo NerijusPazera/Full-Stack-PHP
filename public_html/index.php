@@ -1,34 +1,19 @@
 <?php
 
-
 require '../bootloader.php';
 
 $title = 'Home page';
+$user = current_user();
 
-$users = file_to_array(USERS);
-
-if (isset($_SESSION['user_email'])) {
-    foreach ($users as $user) {
-        if ($_SESSION['user_email'] == $user['email']) {
-            $name = $user['username'];
-            $h1 = "Sveiki, sugrįžę $name !";
-        }
-    }
+if($user) {
+    $h1 = 'Sveikas ' . $user['username'] . '!';
+    unset($nav['buttons']['login'], $nav['buttons']['register']);
 } else {
-    $h1 = 'Jūs neprisijungęs.';
+    $h1 = 'Esate neprisijungęs !';
+    unset($nav['buttons']['logout']);
 }
 
-$array = [
-        'oop' => '!poo'
-];
-
-
-$db = new FileDB(ROOT . '/app/data/db.json');
-
-
-
 ?>
-
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
@@ -36,7 +21,7 @@ $db = new FileDB(ROOT . '/app/data/db.json');
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<?php include '../core/templates/nav.php'; ?>
+<?php include '../core/templates/nav.tpl.php'; ?>
 <main>
     <h1><?php print $h1; ?></h1>
 </main>

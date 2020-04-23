@@ -180,9 +180,9 @@ function validate_email($field_input, array &$field): bool
  */
 function validate_email_unique($field_input, array &$field): bool
 {
-    $users = file_to_array(USERS) ?: [];
+    $users = App\App::$db->getData();
 
-    foreach ($users as $user) {
+    foreach ($users['users'] as $user) {
         if ($user['email'] == $field_input) {
             $field['error'] = 'Vartotojas tokiu el-paštu jau registruotas !';
 
@@ -201,17 +201,15 @@ function validate_email_unique($field_input, array &$field): bool
  */
 function validate_login(array $filtered_input, &$form): bool
 {
-    $users = file_to_array(USERS) ?: [];
 
-    foreach ($users as $user_info) {
-        if ($user_info['email'] == $filtered_input['email'] && $user_info['password'] == $filtered_input['password']) {
+    if (isset($filtered_input['email'])) {
+        if (!App\App::$db->getRowsWhere('users', ['email' => $filtered_input['email'], 'password' => $filtered_input['password']])) {
+            $form['error'] = 'Toks vartotojas neregistruotas, arba blogai įvestas slaptažodis !';
 
-            return true;
+            return false;
         }
-
     }
 
-    $form['error'] = 'Toks vartotojas neregistruotas, arba blogai įvestas slaptažodis !';
-
-    return false;
+    return true;
 }
+

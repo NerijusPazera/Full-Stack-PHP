@@ -2,6 +2,15 @@
 
 require '../bootloader.php';
 
+function form_success($form, $safe_input)
+{
+    $_SESSION['user_email'] = $safe_input['email'];
+    $_SESSION['user_password'] = $safe_input['password'];
+
+    header("Location: /index.php");
+
+}
+
 $title = 'Log In';
 
 $form = [
@@ -47,20 +56,18 @@ $form = [
     ]
 ];
 
+$user = current_user();
+
+if($user) {
+    unset($nav['buttons']['login'], $nav['buttons']['register']);
+} else {
+    unset($nav['buttons']['logout']);
+}
+
 if ($_POST) {
     $safe_input = (get_filtered_inputs($form));
     validate_form($form, $safe_input);
 }
-
-function form_success($form, $safe_input)
-{
-    $_SESSION['user_email'] = $safe_input['email'];
-    $_SESSION['user_password'] = $safe_input['password'];
-
-    header("Location: /index.php");
-
-}
-
 ?>
 <html lang="en" dir="ltr">
 <head>
@@ -69,7 +76,7 @@ function form_success($form, $safe_input)
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<?php include '../core/templates/nav.php'; ?>
+<?php include '../core/templates/nav.tpl.php'; ?>
 <main>
     <?php include '../core/templates/form.tpl.php'; ?>
 </main>
