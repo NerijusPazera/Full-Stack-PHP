@@ -14,7 +14,6 @@ require 'vendor/autoload.php';
 
 
 require 'app/functions/form/validators.php';
-require 'app/functions/auth.php';
 
 $app = new App\App();
 

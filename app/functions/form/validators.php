@@ -56,3 +56,24 @@ function validate_phone($field_input, array &$field): bool
 
     return true;
 }
+
+/**
+ * F-cija tikrinanti ar toks pixelis egzistuoja.
+ * @param array $filtered_input
+ * @param $form
+ * @return bool
+ */
+function validate_pixel_unique(array $filtered_input, &$form): bool
+{
+    $database = \App\App::$db->getData();
+
+    foreach ($database['pixels'] as $pixel) {
+        if ($pixel['x'] == $filtered_input['x'] && $pixel['y'] == $filtered_input['y']) {
+            $form['error'] = 'Toks pixelis jau egzistuoja !';
+
+            return false;
+        }
+    }
+
+    return true;
+}

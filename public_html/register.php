@@ -4,15 +4,9 @@ require '../bootloader.php';
 
 function form_success($form, $safe_input)
 {
+    $user = new App\Users\User($safe_input);
 
-
-    App\App::$db->insertRow('users',
-        [
-            'username' => $safe_input['username'],
-            'email' => $safe_input['email'],
-            'password' => $safe_input['password'],
-        ]);
-
+    App\App::$db->insertRow('users', $user->_getData());
     header("Location: /login.php");
 }
 
@@ -80,7 +74,7 @@ $form = [
     ]
 ];
 
-$user = current_user();
+$user = \App\App::$session->getUser();
 
 if($user) {
     unset($nav['buttons']['login'], $nav['buttons']['register']);

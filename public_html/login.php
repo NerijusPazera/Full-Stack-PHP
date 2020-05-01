@@ -4,8 +4,7 @@ require '../bootloader.php';
 
 function form_success($form, $safe_input)
 {
-    $_SESSION['user_email'] = $safe_input['email'];
-    $_SESSION['user_password'] = $safe_input['password'];
+    \App\App::$session->login($safe_input['email'], $safe_input['password']);
 
     header("Location: /index.php");
 
@@ -18,7 +17,7 @@ $form = [
         'id' => 'login-form'
     ],
     'validators' => [
-            'validate_login'
+        'validate_login'
     ],
     'callbacks' => [
         'success' => 'form_success',
@@ -56,9 +55,9 @@ $form = [
     ]
 ];
 
-$user = current_user();
+$user = \App\App::$session->getUser();
 
-if($user) {
+if ($user) {
     unset($nav['buttons']['login'], $nav['buttons']['register']);
 } else {
     unset($nav['buttons']['logout']);

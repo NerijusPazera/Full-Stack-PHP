@@ -2,6 +2,4 @@
 
 require '../bootloader.php';
 
-$_SESSION = [];
-
-header("Location: /login.php");
+\App\App::$session->logout('/login.php');

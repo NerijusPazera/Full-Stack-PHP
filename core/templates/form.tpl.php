@@ -3,7 +3,7 @@
     <!--    Field Generation Start-->
     <?php foreach ($form['fields'] ?? [] as $field_id => $field) : ?>
         <label><span><?php print $field['label'] ?? ''; ?></span>
-            <?php if (in_array($field['type'], ['text', 'email', 'password', 'number'])) : ?>
+            <?php if (in_array($field['type'], ['text', 'email', 'password', 'number', 'color'])) : ?>
                 <input <?php print html_attr(($field['extra']['attr'] ?? []) +
                     [
                         'type' => $field['type'],

@@ -180,9 +180,9 @@ function validate_email($field_input, array &$field): bool
  */
 function validate_email_unique($field_input, array &$field): bool
 {
-    $users = App\App::$db->getData();
+    $database = App\App::$db->getData();
 
-    foreach ($users['users'] as $user) {
+    foreach ($database['users'] as $user) {
         if ($user['email'] == $field_input) {
             $field['error'] = 'Vartotojas tokiu el-paštu jau registruotas !';
 
