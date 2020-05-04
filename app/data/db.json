@@ -1,1 +1,1 @@
-{"users":[{"username":"Balvonas","email":"balvonas@gmail.com","password":"qwerty"},{"username":"test1","email":"test@test.lt","password":"asdfghj"}],"pixels":[{"x":1,"y":1,"color":"#ff0000","email":"test@test.lt"}]}
+{"users":[{"username":"Balvonas","email":"balvonas@gmail.com","password":"qwerty"},{"username":"test","email":"test@test.lt","password":"asdfghj"}],"pixels":[{"x":1,"y":1,"color":"#ff0000","email":"test@test.lt"},{"x":5,"y":10,"color":"#0000ff","email":"balvonas@gmail.com"}]}

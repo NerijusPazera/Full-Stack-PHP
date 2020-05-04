@@ -1,9 +1,7 @@
 <?php
 
 require '../bootloader.php';
-
-$title = 'Home page';
-$user = \App\App::$session->getUser();
+require ROOT . '/app/templates/homepage_form.tpl.php';
 
 function form_success($form, $safe_input)
 {
@@ -13,83 +11,9 @@ function form_success($form, $safe_input)
     header("Location: /index.php");
 }
 
+$title = 'Home page';
+$user = \App\App::$session->getUser();
 $database = \App\App::$db->getData();
-
-$form = [
-    'attr' => [
-        'action' => 'index.php',
-        'method' => 'POST',
-        'class' => 'pixel-form',
-        'id' => 'login-form'
-    ],
-    'validators' => [
-        'validate_pixel_unique'
-    ],
-    'callbacks' => [
-        'success' => 'form_success',
-    ],
-    'fields' => [
-        'x' => [
-            'label' => 'X koordinates',
-            'type' => 'number',
-            'value' => '',
-            'validators' => [
-                'validate_not_empty',
-                'validate_is_number',
-                'validate_is_positive',
-                'validate_field_range' => [
-                    'min' => 0,
-                    'max' => 1000
-                ]
-            ],
-            'extra' => [
-                'attr' => [
-                ]
-            ]
-        ],
-        'y' => [
-            'label' => 'Y koordinates',
-            'type' => 'number',
-            'value' => '',
-            'validators' => [
-                'validate_not_empty',
-                'validate_is_number',
-                'validate_is_positive',
-                'validate_field_range' => [
-                    'min' => 0,
-                    'max' => 600
-                ]
-            ],
-            'extra' => [
-                'attr' => [
-                ]
-            ]
-        ],
-        'color' => [
-            'label' => 'Pasirinkite spalva',
-            'type' => 'color',
-            'value' => '#000000',
-            'validators' => [
-            ],
-            'extra' => [
-                'attr' => [
-                    'class' => 'color-picker'
-                ]
-            ]
-        ],
-    ],
-    'buttons' => [
-        'action' => [
-            'name' => 'action',
-            'text' => 'Pirkti pixeli',
-            'extra' => [
-                'attr' => [
-                    'class' => 'action-button',
-                ]
-            ]
-        ],
-    ]
-];
 
 if ($user) {
     $h1 = 'Sveikas ' . $user->getUsername() . '!';
@@ -100,10 +24,15 @@ if ($user) {
     unset($form);
 }
 
+$view_nav = new \Core\View($nav);
+
 if ($_POST) {
     $safe_input = (get_filtered_inputs($form));
     validate_form($form, $safe_input);
 }
+
+$view_form = new \Core\View($form ?? []);
+
 ?>
 <html lang="en" dir="ltr">
 <head>
@@ -112,10 +41,10 @@ if ($_POST) {
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<?php include ROOT . '/core/templates/nav.tpl.php'; ?>
+<?php print $view_nav->render(ROOT . '/core/templates/nav.tpl.php'); ?>
 <main>
     <h1><?php print $h1; ?></h1>
-    <?php include ROOT . '/core/templates/form.tpl.php'; ?>
+    <?php print $view_form->render(ROOT . '/core/templates/form.tpl.php'); ?>
     <div class="pixels-container">
         <?php foreach ($database['pixels'] as $pixel) : ?>
             <span class="pixel" style="background-color: <?php print $pixel['color']; ?>;

@@ -1,7 +1,7 @@
-<form <?php print html_attr(($form['attr'] ?? []) + ['method' => 'POST']); ?>>
+<form <?php print html_attr(($data['attr'] ?? []) + ['method' => 'POST']); ?>>
 
     <!--    Field Generation Start-->
-    <?php foreach ($form['fields'] ?? [] as $field_id => $field) : ?>
+    <?php foreach ($data['fields'] ?? [] as $field_id => $field) : ?>
         <label><span><?php print $field['label'] ?? ''; ?></span>
             <?php if (in_array($field['type'], ['text', 'email', 'password', 'number', 'color'])) : ?>
                 <input <?php print html_attr(($field['extra']['attr'] ?? []) +
@@ -37,13 +37,13 @@
             <?php endif; ?>
         </label>
     <?php endforeach; ?>
-    <?php if (isset($form['error'])): ?>
-        <span class="error"><?php print $form['error']; ?></span>
+    <?php if (isset($data['error'])): ?>
+        <span class="error"><?php print $data['error']; ?></span>
     <?php endif; ?>
     <!--    Field Generation End-->
 
     <!--    Button Generation Start-->
-    <?php foreach ($form['buttons'] ?? [] as $button_id => $button) : ?>
+    <?php foreach ($data['buttons'] ?? [] as $button_id => $button) : ?>
         <button <?php print html_attr(($button['extra']['attr'] ?? [])); ?>><?php print $button['text']; ?></button>
     <?php endforeach; ?>
     <!--    Button Generation End-->

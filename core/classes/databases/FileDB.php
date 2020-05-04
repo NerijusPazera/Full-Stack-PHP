@@ -247,11 +247,11 @@ class FileDB
         return $results;
     }
 
-    public function getRowWhere(string $table_name, array $conditions = []): array
+    public function getRowWhere(string $table_name, array $conditions = []): ?array
     {
         $results = $this->getRowsWhere($table_name, $conditions);
 
-        return reset($results);
+        return reset($results) ?: null;
     }
 
 }
