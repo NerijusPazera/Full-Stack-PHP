@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Pixels;
+namespace App\Pixel;
 
 use Core\DataHolder;
 
@@ -77,5 +77,23 @@ class Pixel extends DataHolder
     public function getEmail(): ?string
     {
         return $this->email ?? null;
+    }
+
+    /**
+     * Metodas nustatantis id reiksme, duomenu masyve.
+     * @param $id
+     */
+    public function setId($id): void
+    {
+        $this->id =$id;
+    }
+
+    /**
+     * Metodas grazinantis id reiksme, is duomenu masyvo.
+     * @return mixed|null
+     */
+    public function getId()
+    {
+        return $this->id ?? null;
     }
 }

@@ -13,7 +13,7 @@ $form = [
     'fields' => [
         'email' => [
             'label' => 'E-mail',
-            'type' => 'text',
+            'type' => 'email',
             'value' => '',
             'validators' => [
                 'validate_not_empty',

@@ -240,6 +240,7 @@ class FileDB
                 }
             }
             if ($passed) {
+                $row['id'] = $row_id;
                 $results[$row_id] = $row;
             }
         }
