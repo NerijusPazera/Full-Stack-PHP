@@ -50,9 +50,7 @@ function validate_form(array &$form, array $safe_input): bool
                     break;
                 }
             }
-
         }
-
     }
     if ($success) {
         foreach ($form['validators'] ?? [] as $validator_id => $form_validator) {
@@ -91,4 +89,13 @@ function fill_form(array &$form, array $data): void
     foreach ($form['fields'] as $field_id => &$field) {
         $field['value'] = $data[$field_id] ?? $field['value'] ?? '';
     }
+}
+
+/**
+ * F-cija grazinanti paspausto formos mygtuko reiksme.
+ * @return string|null
+ */
+function get_form_action() : ?string
+{
+    return $_POST['action'] ?? null;
 }

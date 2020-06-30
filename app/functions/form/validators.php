@@ -58,22 +58,19 @@ function validate_phone($field_input, array &$field): bool
 }
 
 /**
- * F-cija tikrinanti ar toks pixelis egzistuoja.
- * @param array $filtered_input
- * @param $form
+ * F-cija tikrinanti ar i laukeli ivesta skaicius yra float formato
+ * @param $field_input
+ * @param array $field
  * @return bool
  */
-function validate_pixel_unique(array $filtered_input, &$form): bool
+function validate_is_float($field_input, array &$field): bool
 {
-    $database = \App\App::$db->getData();
+    if (!is_float($field_input)) {
+        $field['error'] = 'Įveskite float tipo skaičių !';
 
-    foreach ($database['pixels'] as $pixel) {
-        if ($pixel['x'] == $filtered_input['x'] && $pixel['y'] == $filtered_input['y']) {
-            $form['error'] = 'Toks pixelis jau egzistuoja !';
-
-            return false;
-        }
+        return false;
     }
 
     return true;
 }
+

@@ -1,11 +1,13 @@
-<table class="table">
+<table>
     <thead>
-        <?php foreach ($table['thead'] ?? [] as $thead => $thead_value): ?>
-            <th><?php print $thead_value; ?></th>
-        <?php endforeach; ?>
+    <?php foreach ($data['thead'] ?? [] as $thead_name => $thead): ?>
+        <th <?php print html_attr($thead['attr'] ?? []); ?>>
+            <?php print $thead_name; ?>
+        </th>
+    <?php endforeach; ?>
     </thead>
     <tbody>
-    <?php foreach ($table['tbody'] ?? [] as $trow): ?>
+    <?php foreach ($data['tbody'] ?? [] as $trow): ?>
         <tr>
             <?php foreach ($trow ?? [] as $tcol_value): ?>
                 <td><?php print $tcol_value; ?></td>

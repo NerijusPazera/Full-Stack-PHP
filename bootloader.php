@@ -11,7 +11,8 @@ require 'core/functions/html.php';
 require 'core/functions/file.php';
 require 'vendor/autoload.php';
 
-require 'app/templates/nav_array.tpl.php';
 require 'app/functions/form/validators.php';
 
 $app = new App\App();
+
+require 'app/cofig/routes.php';
