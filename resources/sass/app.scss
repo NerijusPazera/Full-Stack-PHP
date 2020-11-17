@@ -1,0 +1,184 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+main h1 {
+    text-align: center;
+}
+
+.gold {
+    color: gold;
+}
+
+.silver {
+    color: silver;
+}
+
+.bronze {
+    color: #B1560F;
+}
+
+.gold, .silver, .bronze {
+    margin: 0;
+}
+
+.my-table {
+    min-width: 50%;
+    max-width: 80%;
+    margin: 20px 0 10px;
+
+    thead {
+        background-color: #AECB3E;
+    }
+
+    thead, th, td {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    tbody {
+        tr:nth-child(odd) {
+            background-color: #E3E4E6;
+        }
+    }
+
+    .medal {
+        font-size: 30px;
+    }
+}
+
+.welcome-table-container {
+    margin-top: 30px;
+
+    .my-table {
+        min-width: 100%;
+        margin-bottom: 20px;
+
+    }
+}
+
+#admin-table {
+    td {
+        &:nth-last-of-type(2) {
+            border-right: none;
+            padding: 5px;
+        }
+
+        &:last-of-type {
+            border-left: none;
+            padding: 5px;
+        }
+    }
+
+    .edit-btn {
+        padding: 5px 15px;
+        background: #3490dc;
+        color: white;
+
+        &:hover {
+            background: #1d68a7;
+            text-decoration: none;
+        }
+
+        &:focus {
+            outline: 5px auto black;
+        }
+    }
+
+    .delete-btn {
+        padding: 5px 15px;
+        background: red;
+        color: white;
+        border: none;
+
+        &:hover {
+            background: darkred;
+            text-decoration: none;
+        }
+    }
+}
+
+.my-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    background-color: #E3E7EA;
+    padding: 20px 10px;
+    box-shadow: 5px 10px 8px #888888;
+    margin: 0 auto;
+
+    label {
+        width: 100%;
+        text-align: center;
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    input {
+        display: block;
+        width: 100%;
+        height: 25px;
+        border: 0;
+        border-bottom: 1px solid grey;
+        outline: none;
+        background-color: #E3E7EA;
+    }
+
+    label:not(:first-of-type) {
+        margin-top: 20px;
+    }
+
+    button {
+        width: 95%;
+        height: 50px;
+        margin-top: 20px;
+        background-color: green;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: forestgreen;
+    }
+
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+
+    .users-select {
+        width: 50%;
+    }
+}
+
+#test-container {
+    background-color: #2B87D1;
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    top: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+
+    h1 {
+        font-size: 5em;
+    }
+}
+
